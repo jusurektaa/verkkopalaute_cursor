@@ -1,0 +1,180 @@
+/* Kirjautumissivun tyylit */
+.login-main {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 120px 0 80px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 0 2rem;
+}
+
+.login-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.login-header h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.login-header p {
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.login-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #007bff;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+    accent-color: #007bff;
+}
+
+.btn-login {
+    width: 100%;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.btn-login:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.login-footer {
+    border-top: 1px solid #e9ecef;
+    padding-top: 1.5rem;
+}
+
+.forgot-password {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.login-help {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.login-help a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-help a:hover {
+    text-decoration: underline;
+}
+
+.login-message {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-weight: 500;
+    display: none;
+}
+
+.login-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.login-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsiivisuus */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 0 1rem;
+    }
+    
+    .login-card {
+        padding: 2rem;
+    }
+    
+    .login-header h1 {
+        font-size: 1.8rem;
+    }
+} 

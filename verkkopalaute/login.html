@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirjaudu sisään - Verkkopalaute</title>
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/logo.png" alt="Verkkopalaute" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Etusivu</a></li>
+                <li><a href="index.html#features">Ominaisuudet</a></li>
+                <li><a href="index.html#pricing">Hinnat</a></li>
+                <li><a href="contact.html">Yhteydenotto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="login-main">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1>Kirjaudu sisään</h1>
+                    <p>Tervetuloa Verkkopalautteen hallintapaneeliin</p>
+                </div>
+                
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="email">Sähköposti</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Salasana</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span class="checkmark"></span>
+                            Muista minut
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-login">Kirjaudu sisään</button>
+                </form>
+                
+                <div class="login-footer">
+                    <a href="#" class="forgot-password">Unohditko salasanasi?</a>
+                    <p class="login-help">Tarvitsetko apua? <a href="contact.html">Ota yhteyttä</a></p>
+                </div>
+                
+                <div id="loginMessage" class="login-message"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Verkkopalaute</h4>
+                    <p>Suomalainen palvelu asiakaspalautteen keräämiseen ja käsittelyyn.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Linkit</h4>
+                    <ul>
+                        <li><a href="index.html">Etusivu</a></li>
+                        <li><a href="index.html#features">Ominaisuudet</a></li>
+                        <li><a href="index.html#pricing">Hinnat</a></li>
+                        <li><a href="index.html#contact">Yhteydenotto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Yhteystiedot</h4>
+                    <p>info@verkkopalaute.fi</p>
+                    <p>+358 40 123 4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Verkkopalaute. Kaikki oikeudet pidätetään.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="login.js"></script>
+</body>
+</html> 

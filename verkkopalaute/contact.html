@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ota yhteyttä - Verkkopalaute</title>
+	<link rel="icon" href="assets/logo.png" type="image/png">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<header>
+		<nav class="navbar">
+			<div class="logo">
+				<a href="index.html">
+					<img src="assets/logo.png" alt="Verkkopalaute" class="logo-img">
+				</a>
+			</div>
+			<ul class="nav-links" id="navLinks">
+				<li><a href="index.html#hero">Etusivu</a></li>
+				<li><a href="index.html#features">Ominaisuudet</a></li>
+				<li><a href="index.html#pricing">Hinnat</a></li>
+				<li><a href="feedback-form.html">Anna palautetta</a></li>
+				<li><a href="login.html" class="btn-primary">Kirjaudu</a></li>
+			</ul>
+			<div class="menu-icon" id="menuIcon">&#9776;</div>
+		</nav>
+	</header>
+
+	<section class="contact-section" style="padding-top: 120px;" id="contact">
+		<div class="container">
+			<h2>Ota yhteyttä</h2>
+			<p>Jätä yhteydenottopyyntö tai kysymys, palaamme sinulle pian.</p>
+			<form id="contactForm">
+				<div class="form-row">
+					<div class="form-group">
+						<label for="name">Nimi *</label>
+						<input type="text" id="name" name="name" required>
+					</div>
+					<div class="form-group">
+						<label for="email">Sähköposti *</label>
+						<input type="email" id="email" name="email" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="company">Yritys</label>
+					<input type="text" id="company" name="company">
+				</div>
+				<div class="form-group">
+					<label for="message">Viesti *</label>
+					<textarea id="message" name="message" rows="5" required></textarea>
+				</div>
+				<button type="submit" class="btn-primary">Lähetä viesti</button>
+			</form>
+			<div id="formMessage"></div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="container">
+			<div class="footer-content">
+				<div class="footer-section">
+					<h4>Verkkopalaute</h4>
+					<p>Suomalainen palvelu asiakaspalautteen keräämiseen ja käsittelyyn.</p>
+				</div>
+				<div class="footer-section">
+					<h4>Linkit</h4>
+					<ul>
+						<li><a href="index.html#hero">Etusivu</a></li>
+						<li><a href="index.html#features">Ominaisuudet</a></li>
+						<li><a href="index.html#pricing">Hinnat</a></li>
+						<li><a href="contact.html">Yhteydenotto</a></li>
+					</ul>
+				</div>
+				<div class="footer-section">
+					<h4>Yhteystiedot</h4>
+					<p>info@verkkopalaute.fi</p>
+					<p>+358 40 123 4567</p>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2024 Verkkopalaute. Kaikki oikeudet pidätetään.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		// Uudelleenkäytetään samaa lomakelogiikkaa kuin etusivulla
+		document.getElementById('contactForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			document.getElementById('formMessage').textContent = 'Kiitos viestistäsi! Otamme yhteyttä mahdollisimman pian.';
+			this.reset();
+		});
+	</script>
+</body>
+</html> 

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallintapaneeli - Verkkopalaute</title>
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header class="admin-header">
+        <nav class="admin-navbar">
+            <div class="admin-logo">
+                <a href="index.html">
+                    <img src="assets/logo.png" alt="Verkkopalaute" class="logo-img">
+                </a>
+                <span class="admin-title">Hallintapaneeli</span>
+            </div>
+            <div class="admin-nav-right">
+                <div class="user-info">
+                    <span id="userEmail">admin@verkkopalaute.fi</span>
+                    <button id="logoutBtn" class="btn-logout">Kirjaudu ulos</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#dashboard" data-section="dashboard">
+                            <span class="icon">📊</span>
+                            Yleiskatsaus
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#feedback" data-section="feedback">
+                            <span class="icon">💬</span>
+                            Palautteet
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#forms" data-section="forms">
+                            <span class="icon">📝</span>
+                            Lomakkeet
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#analytics" data-section="analytics">
+                            <span class="icon">📈</span>
+                            Analytiikka
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#settings" data-section="settings">
+                            <span class="icon">⚙️</span>
+                            Asetukset
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <!-- Yleiskatsaus -->
+            <section id="dashboard" class="admin-section active">
+                <div class="section-header">
+                    <h1>Yleiskatsaus</h1>
+                    <p>Tervetuloa Verkkopalautteen hallintapaneeliin</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3>Kokonaispalautteet</h3>
+                            <div class="stat-number" id="totalFeedback">24</div>
+                            <div class="stat-change positive">+12% viime kuusta</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <h3>Aktiiviset lomakkeet</h3>
+                            <div class="stat-number" id="activeForms">3</div>
+                            <div class="stat-change">Aktiivinen</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <h3>Keskiarvo</h3>
+                            <div class="stat-number" id="avgRating">4.2</div>
+                            <div class="stat-change">/ 5 tähteä</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <h3>Tänään</h3>
+                            <div class="stat-number" id="todayFeedback">3</div>
+                            <div class="stat-change">uutta palautetta</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-feedback">
+                    <h2>Viimeisimmät palautteet</h2>
+                    <div class="feedback-list" id="recentFeedbackList">
+                        <!-- Palautteet ladataan JavaScriptillä -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Palautteet -->
+            <section id="feedback" class="admin-section">
+                <div class="section-header">
+                    <h1>Palautteet</h1>
+                    <div class="section-actions">
+                        <button class="btn-primary" id="refreshBtn">🔄 Päivitä</button>
+                        <button class="btn-primary" id="exportBtn">Vie tiedot</button>
+                        <button class="btn-secondary" id="filterBtn">Suodata</button>
+                    </div>
+                </div>
+                
+                <div class="feedback-filters">
+                    <div class="filter-group">
+                        <label for="statusFilter">Tila:</label>
+                        <select id="statusFilter">
+                            <option value="all">Kaikki</option>
+                            <option value="new">Uusi</option>
+                            <option value="read">Luettu</option>
+                            <option value="replied">Vastattu</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="dateFilter">Päivämäärä:</label>
+                        <select id="dateFilter">
+                            <option value="all">Kaikki</option>
+                            <option value="today">Tänään</option>
+                            <option value="week">Viime viikko</option>
+                            <option value="month">Viime kuukausi</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="feedback-table-container">
+                    <table class="feedback-table">
+                        <thead>
+                            <tr>
+                                <th>Päivämäärä</th>
+                                <th>Nimi</th>
+                                <th>Sähköposti</th>
+                                <th>Viesti</th>
+                                <th>Tila</th>
+                                <th>Toiminnot</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackTableBody">
+                            <!-- Palautteet ladataan JavaScriptillä -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Lomakkeet -->
+            <section id="forms" class="admin-section">
+                <div class="section-header">
+                    <h1>Lomakkeet</h1>
+                    <button class="btn-primary" id="createFormBtn">Luo uusi lomake</button>
+                </div>
+                
+                <div class="forms-grid" id="formsGrid">
+                    <!-- Lomakkeet ladataan JavaScriptillä -->
+                </div>
+            </section>
+
+            <!-- Analytiikka -->
+            <section id="analytics" class="admin-section">
+                <div class="section-header">
+                    <h1>Analytiikka</h1>
+                    <p>Palautteiden tilastot ja trendit</p>
+                </div>
+                
+                <div class="analytics-charts">
+                    <div class="chart-container">
+                        <h3>Palautteet kuukausittain</h3>
+                        <div class="chart-placeholder">
+                            <p>📊 Kuvaaja tulee tähän</p>
+                            <p>Oikeassa sovelluksessa tässä olisi Chart.js tai vastaava</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Asetukset -->
+            <section id="settings" class="admin-section">
+                <div class="section-header">
+                    <h1>Asetukset</h1>
+                    <p>Hallintapaneelin asetukset</p>
+                </div>
+                
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label for="companyName">Yrityksen nimi</label>
+                        <input type="text" id="companyName" value="Verkkopalaute Oy">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adminEmail">Admin-sähköposti</label>
+                        <input type="email" id="adminEmail" value="admin@verkkopalaute.fi">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notificationSettings">Ilmoitukset</label>
+                        <select id="notificationSettings">
+                            <option value="all">Kaikki palautteet</option>
+                            <option value="urgent">Vain kiireelliset</option>
+                            <option value="none">Ei ilmoituksia</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary">Tallenna asetukset</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Palautteen katselu modal -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Palautteen tiedot</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="feedbackModalBody">
+                <!-- Palautteen sisältö ladataan JavaScriptillä -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="markAsReadBtn">Merkitse luetuksi</button>
+                <button class="btn-primary" id="replyBtn">Vastaa</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="backend-simulator.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html> 
