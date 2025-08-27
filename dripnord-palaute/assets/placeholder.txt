@@ -1,0 +1,18 @@
+Dripnord-palaute sivuston kuvatiedostot
+
+Tässä kansiossa tarvitaan seuraavat kuvat:
+
+1. dripnord-logo.png - Dripnord-logo (suositus: 200x80px)
+2. hero-image.jpg - Etusivun hero-kuva (suositus: 800x600px)
+
+Jos kuvia ei ole saatavilla, voit:
+- Käyttää placeholder-kuvia (esim. placeholder.com)
+- Luoda omat kuvat
+- Poistaa kuvaviittaukset HTML-tiedostoista
+
+Kuvatiedostojen nimet ja polut:
+- Logo: assets/dripnord-logo.png
+- Hero-kuva: assets/hero-image.jpg
+
+Huomio: Kuvatiedostot eivät ole pakollisia sivuston toimimiseksi, mutta ne parantavat ulkoasua huomattavasti.
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dripnord - Kirjaudu sisään</title>
+    <link rel="stylesheet" href="kirjaudu.css">
+    <link rel="icon" type="image/x-icon" href="https://via.placeholder.com/32x32/1e3c72/ffffff?text=D">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../verkkopalaute/index.html">
+                    <img src="https://via.placeholder.com/200x80/1e3c72/ffffff?text=Dripnord" alt="Dripnord" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../verkkopalaute/index.html">Etusivu</a></li>
+                <li><a href="../verkkopalaute/index.html#palvelut">Palvelut</a></li>
+                <li><a href="../verkkopalaute/index.html#hinnat">Hinnat</a></li>
+                <li><a href="../verkkopalaute/index.html#feedback-forms">Kyselyt</a></li>
+                <li><a href="kirjaudu.html">Kirjaudu</a></li>
+                <li><a href="ota-yhteytta.html">Ota yhteyttä</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1>Kirjaudu Dripnord Admin-paneeliin</h1>
+                    <p>Kirjaudu sisään hallitaksesi Dripnord asiakastyytyväisyyskyselyn palautteita</p>
+                </div>
+                
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="email">Sähköposti</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Salasana</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span class="checkmark"></span>
+                            Muista minut
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-login">Kirjaudu sisään</button>
+                    </div>
+                </form>
+                
+                <div class="login-footer">
+                    <p>Demo-tunnukset:</p>
+                    <p><strong>Sähköposti:</strong> admin@dripnord.fi</p>
+                    <p><strong>Salasana:</strong> dripnord123</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Dripnord</h4>
+                    <p>Pohjoismaiden johtava palveluntarjoaja, joka auttaa yrityksiä menestymään.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Yhteystiedot</h4>
+                    <p>Email: info@dripnord.fi</p>
+                    <p>Puhelin: +358 40 123 4567</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Linkit</h4>
+                    <ul>
+                        <li><a href="../verkkopalaute/index.html">Etusivu</a></li>
+                        <li><a href="ota-yhteytta.html">Ota yhteyttä</a></li>
+                        <li><a href="kirjaudu.html">Kirjaudu</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Dripnord. Kaikki oikeudet pidätetään.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="kirjaudu.js"></script>
+</body>
+</html>

@@ -1,65 +1,47 @@
 // Kiitos-sivun toiminnallisuus
 
 // Näytä palautteen yhteenveto
-function loadFeedbackSummary() {
-    const feedbackSummary = document.getElementById('feedbackSummary');
-    
-    // Hae palaute URL-parametreista tai session storagesta
+function displayFeedbackSummary() {
     const urlParams = new URLSearchParams(window.location.search);
     const feedbackId = urlParams.get('id');
+    const formType = urlParams.get('form') || 'verkkopalaute';
     
-    if (feedbackId) {
-        // Jos on ID URL:ssa, hae palaute localStorageesta
-        const storedFeedback = JSON.parse(localStorage.getItem('verkkopalaute_feedback') || '[]');
-        const feedback = storedFeedback.find(f => f.id == feedbackId);
-        
-        if (feedback) {
-            displayFeedbackSummary(feedback);
-        } else {
-            showGenericThankYou();
-        }
-    } else {
-        // Jos ei ole ID:tä, näytä yleinen kiitos
-        showGenericThankYou();
+    if (!feedbackId) {
+        document.getElementById('feedbackSummary').style.display = 'none';
+        return;
     }
-}
-
-// Näytä palautteen yhteenveto
-function displayFeedbackSummary(feedback) {
-    const feedbackSummary = document.getElementById('feedbackSummary');
     
-    feedbackSummary.innerHTML = `
-        <h3>Palautteesi yhteenveto</h3>
-        <div class="feedback-detail">
-            <strong>Nimi:</strong>
-            <span>${feedback.name}</span>
-        </div>
-        <div class="feedback-detail">
-            <strong>Sähköposti:</strong>
-            <span>${feedback.email}</span>
-        </div>
-        <div class="feedback-detail">
-            <strong>Yritys:</strong>
-            <span>${feedback.company || 'Ei määritelty'}</span>
-        </div>
-        <div class="feedback-detail">
-            <strong>Arvosana:</strong>
-            <div class="rating-display">
-                <span class="rating-stars">${'⭐'.repeat(feedback.rating)}</span>
-                <span class="rating-number">${feedback.rating}/10</span>
-            </div>
-        </div>
-        ${feedback.message ? `
-        <div class="feedback-detail">
-            <strong>Lisätietoja:</strong>
-            <span>${feedback.message}</span>
-        </div>
-        ` : ''}
-        <div class="feedback-detail">
-            <strong>Päivämäärä:</strong>
-            <span>${formatDate(feedback.date)}</span>
-        </div>
-    `;
+    let feedbackData;
+    
+    if (formType === 'dripnord') {
+        // Hae Dripnord palaute
+        const dripnordFeedback = JSON.parse(localStorage.getItem('dripnord_feedback') || '[]');
+        feedbackData = dripnordFeedback.find(item => item.id == feedbackId);
+        
+        // Päivitä otsikko
+        document.querySelector('.thank-you-content h1').textContent = 'Kiitos palautteestasi, Dripnord!';
+        document.querySelector('.thank-you-content p').textContent = 'Arvostamme palautettasi ja käytämme sitä palveluidemme kehittämiseen.';
+        
+    } else {
+        // Hae Verkkopalaute palaute
+        const verkkopalauteFeedback = JSON.parse(localStorage.getItem('feedback') || '[]');
+        feedbackData = verkkopalauteFeedback.find(item => item.id == feedbackId);
+    }
+    
+    if (feedbackData) {
+        // Näytä palautteen tiedot
+        document.getElementById('feedbackName').textContent = feedbackData.name;
+        document.getElementById('feedbackEmail').textContent = feedbackData.email;
+        document.getElementById('feedbackCompany').textContent = feedbackData.company || 'Ei määritelty';
+        document.getElementById('feedbackRating').textContent = feedbackData.rating + '/10';
+        document.getElementById('feedbackMessage').textContent = feedbackData.message;
+        document.getElementById('feedbackDate').textContent = new Date(feedbackData.timestamp).toLocaleDateString('fi-FI');
+        
+        // Näytä palautteen yhteenveto
+        document.getElementById('feedbackSummary').style.display = 'block';
+    } else {
+        document.getElementById('feedbackSummary').style.display = 'none';
+    }
 }
 
 // Näytä yleinen kiitos ilman palautteen tietoja
@@ -134,7 +116,7 @@ function addMobileOptimizations() {
 
 // Sivun latauksen yhteydessä
 document.addEventListener('DOMContentLoaded', function() {
-    loadFeedbackSummary();
+    displayFeedbackSummary();
     initMobileMenu();
     initSmoothScrolling();
     addMobileOptimizations();

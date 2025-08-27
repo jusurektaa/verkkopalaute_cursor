@@ -4,8 +4,16 @@ const loginMessage = document.getElementById('loginMessage');
 
 // Demo-kirjautumistiedot (oikeassa sovelluksessa nämä olisivat tietokannassa)
 const DEMO_CREDENTIALS = {
-    email: 'admin@verkkopalaute.fi',
-    password: 'admin123'
+    'admin@verkkopalaute.fi': {
+        password: 'admin123',
+        adminType: 'verkkopalaute',
+        redirectUrl: 'admin.html'
+    },
+    'admin@dripnord.fi': {
+        password: 'dripnord123',
+        adminType: 'dripnord',
+        redirectUrl: '../dripnord-palaute/admin.html'
+    }
 };
 
 loginForm.addEventListener('submit', function(e) {
@@ -23,22 +31,29 @@ loginForm.addEventListener('submit', function(e) {
     
     // Simuloi kirjautumisen tarkistus (oikeassa sovelluksessa tässä olisi API-kutsu)
     setTimeout(() => {
-        if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
+        const userCredentials = DEMO_CREDENTIALS[email];
+        
+        if (userCredentials && password === userCredentials.password) {
             // Onnistunut kirjautuminen
-            showMessage('Kirjautuminen onnistui! Ohjataan hallintapaneeliin...', 'success');
+            const adminType = userCredentials.adminType;
+            const redirectUrl = userCredentials.redirectUrl;
+            
+            showMessage(`Kirjautuminen onnistui! Ohjataan ${adminType === 'verkkopalaute' ? 'Verkkopalaute' : 'Dripnord'}-hallintapaneeliin...`, 'success');
             
             // Tallenna kirjautumistiedot session storageen
             if (remember) {
                 localStorage.setItem('rememberLogin', 'true');
                 localStorage.setItem('userEmail', email);
+                localStorage.setItem('adminType', adminType);
             } else {
                 sessionStorage.setItem('isLoggedIn', 'true');
                 sessionStorage.setItem('userEmail', email);
+                sessionStorage.setItem('adminType', adminType);
             }
             
-            // Ohjaa admin-hallintapaneeliin 2 sekunnin jälkeen
+            // Ohjaa oikeaan admin-hallintapaneeliin 2 sekunnin jälkeen
             setTimeout(() => {
-                window.location.href = 'admin.html';
+                window.location.href = redirectUrl;
             }, 2000);
             
         } else {
@@ -68,7 +83,14 @@ function showMessage(message, type) {
 function checkLoginStatus() {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn') || localStorage.getItem('rememberLogin');
     if (isLoggedIn) {
-        window.location.href = 'admin.html';
+        const adminType = sessionStorage.getItem('adminType') || localStorage.getItem('adminType');
+        const userEmail = sessionStorage.getItem('userEmail') || localStorage.getItem('userEmail');
+        
+        if (adminType === 'verkkopalaute') {
+            window.location.href = 'admin.html';
+        } else if (adminType === 'dripnord') {
+            window.location.href = '../dripnord-palaute/admin.html';
+        }
     }
 }
 

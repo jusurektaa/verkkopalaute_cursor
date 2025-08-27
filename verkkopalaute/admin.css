@@ -351,43 +351,85 @@
     gap: 1.5rem;
 }
 
+/* Form Cards */
 .form-card {
-    background: #fff;
-    border: 1px solid #e9ecef;
-    border-radius: 10px;
+    background: white;
+    border-radius: 12px;
     padding: 1.5rem;
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e5e9;
+    transition: all 0.3s ease;
 }
 
 .form-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
-.form-card h3 {
-    margin: 0 0 1rem 0;
-    color: #333;
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+.form-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+}
+
+.form-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.form-status.active {
+    background: #d4edda;
+    color: #155724;
 }
 
 .form-stats {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-stat {
     text-align: center;
 }
 
-.form-stat-number {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #007bff;
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
 }
 
-.form-stat-label {
-    font-size: 0.8rem;
-    color: #666;
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.form-actions .btn-secondary,
+.form-actions .btn-primary {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
 }
 
 /* Settings form */
@@ -486,6 +528,27 @@
     justify-content: flex-end;
 }
 
+/* Form Type Badges */
+.form-type-badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+}
+
+.form-type-badge.verkkopalaute {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.form-type-badge.dripnord {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
 /* Responsiivisuus */
 @media (max-width: 768px) {
     .admin-sidebar {
@@ -526,5 +589,21 @@
     
     .admin-title {
         display: none;
+    }
+
+    /* Responsive adjustments */
+    .form-stats {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions .btn-secondary,
+    .form-actions .btn-primary {
+        flex: none;
+        width: 100%;
     }
 } 

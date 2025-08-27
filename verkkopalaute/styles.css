@@ -352,6 +352,91 @@ header {
     color: #28a745;
 }
 
+/* Feedback Forms Section */
+.feedback-forms {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 4rem 0;
+    margin: 2rem 0;
+}
+
+.feedback-forms h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feedback-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.feedback-forms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feedback-form-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.feedback-form-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border-color: #3498db;
+}
+
+.form-logo {
+    margin-bottom: 1.5rem;
+}
+
+.form-logo-img {
+    height: 60px;
+    width: auto;
+    border-radius: 8px;
+}
+
+.feedback-form-card h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feedback-form-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.form-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.feature-tag {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 /* Footer */
 footer {
     background: #333;
@@ -447,6 +532,23 @@ footer {
     
     .pricing-card.featured:hover {
         transform: translateY(-5px);
+    }
+    
+    .feedback-forms-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .feedback-form-card {
+        padding: 1.5rem;
+    }
+    
+    .feedback-forms h2 {
+        font-size: 2rem;
+    }
+    
+    .feedback-intro {
+        font-size: 1.1rem;
     }
 }
 

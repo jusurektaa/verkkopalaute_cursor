@@ -1,17 +1,17 @@
-// Admin-hallintapaneelin toiminnallisuus - Vain Verkkopalaute-kyselyn tiedot
+// Dripnord Admin-hallintapaneelin toiminnallisuus - Vain Dripnord-kyselyn tiedot
 
 // Tarkista kirjautumistila
 function checkAuth() {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn') || localStorage.getItem('rememberLogin');
     if (!isLoggedIn) {
-        window.location.href = 'login.html';
+        window.location.href = 'kirjaudu.html';
         return;
     }
     
-    // Tarkista että käyttäjä on Verkkopalaute-admin
+    // Tarkista että käyttäjä on Dripnord-admin
     const adminType = sessionStorage.getItem('adminType') || localStorage.getItem('adminType');
-    if (adminType !== 'verkkopalaute') {
-        // Jos ei ole Verkkopalaute-admin, ohjaa takaisin kirjautumissivulle
+    if (adminType !== 'dripnord') {
+        // Jos ei ole Dripnord-admin, ohjaa takaisin kirjautumissivulle
         logout();
         return;
     }
@@ -23,11 +23,11 @@ function checkAuth() {
     }
 }
 
-// Hae palautteet localStorageesta
+// Hae Dripnord palautteet localStorageesta
 function getFeedbackData() {
     try {
-        // Hae vain Verkkopalaute palautteet localStorageesta
-        const storedFeedback = JSON.parse(localStorage.getItem('verkkopalaute_feedback') || '[]');
+        // Hae vain Dripnord palautteet localStorageesta
+        const storedFeedback = JSON.parse(localStorage.getItem('dripnord_feedback') || '[]');
         
         if (storedFeedback.length > 0) {
             return storedFeedback;
@@ -38,56 +38,61 @@ function getFeedbackData() {
             {
                 id: 1,
                 date: '2024-01-15',
-                name: 'Matti Meikäläinen',
-                email: 'matti@example.com',
-                company: 'ABC Oy',
-                message: 'Erinomainen palvelu! Sain nopeasti apua ongelmaani.',
+                name: 'Dripnord User 1',
+                email: 'dripnord1@example.com',
+                company: 'Dripnord Inc',
+                message: 'Great service! Very fast delivery.',
                 status: 'new',
-                rating: 5
+                rating: 5,
+                timestamp: '2024-01-15T10:00:00Z'
             },
             {
                 id: 2,
                 date: '2024-01-14',
-                name: 'Liisa Virtanen',
-                email: 'liisa@example.com',
-                company: 'XYZ Ky',
-                message: 'Hyvä palvelu, mutta voisi olla nopeampi vastata.',
+                name: 'Dripnord User 2',
+                email: 'dripnord2@example.com',
+                company: 'Dripnord Corp',
+                message: 'Could be faster in replying.',
                 status: 'read',
-                rating: 4
+                rating: 4,
+                timestamp: '2024-01-14T11:00:00Z'
             },
             {
                 id: 3,
                 date: '2024-01-13',
-                name: 'Pekka Korhonen',
-                email: 'pekka@example.com',
-                company: 'DEF Ab',
-                message: 'Ongelma ratkaistu nopeasti. Kiitos!',
+                name: 'Dripnord User 3',
+                email: 'dripnord3@example.com',
+                company: 'Dripnord Ltd',
+                message: 'Problem solved quickly. Thank you!',
                 status: 'replied',
-                rating: 5
+                rating: 5,
+                timestamp: '2024-01-13T12:00:00Z'
             },
             {
                 id: 4,
                 date: '2024-01-12',
-                name: 'Anna Mäkinen',
-                email: 'anna@example.com',
-                company: 'GHI Oy',
-                message: 'Tarvitsen lisätietoja tuotteesta.',
+                name: 'Dripnord User 4',
+                email: 'dripnord4@example.com',
+                company: 'Dripnord Group',
+                message: 'Need more info about the product.',
                 status: 'new',
-                rating: 3
+                rating: 3,
+                timestamp: '2024-01-12T13:00:00Z'
             },
             {
                 id: 5,
                 date: '2024-01-11',
-                name: 'Jussi Laaksonen',
-                email: 'jussi@example.com',
-                company: 'JKL Ky',
-                message: 'Erinomainen asiakaspalvelu ja nopea toimitus.',
+                name: 'Dripnord User 5',
+                email: 'dripnord5@example.com',
+                company: 'Dripnord Alliance',
+                message: 'Excellent customer service and fast delivery.',
                 status: 'replied',
-                rating: 5
+                rating: 5,
+                timestamp: '2024-01-11T14:00:00Z'
             }
         ];
     } catch (error) {
-        console.error('Virhe palautteiden haussa:', error);
+        console.error('Virhe Dripnord palautteiden haussa:', error);
         return [];
     }
 }
@@ -101,9 +106,9 @@ function refreshFeedbackData() {
 const DEMO_FORMS = [
     {
         id: 1,
-        name: 'Verkkopalaute - Asiakastyytyväisyys',
-        description: 'Asiakastyytyväisyyskysely Verkkopalaute-palveluista',
-        submissions: 15,
+        name: 'Dripnord - Asiakastyytyväisyys',
+        description: 'Asiakastyytyväisyyskysely Dripnord-palveluista',
+        submissions: 8,
         status: 'active'
     }
 ];
@@ -160,27 +165,21 @@ function loadDashboard() {
 function updateFormStats() {
     const feedbackData = getFeedbackData();
     
-    // Verkkopalaute tilastot
-    document.getElementById('verkkopalauteCount').textContent = feedbackData.length;
-    const verkkopalauteAvg = feedbackData.length > 0 ? 
+    // Dripnord tilastot
+    document.getElementById('dripnordCount').textContent = feedbackData.length;
+    const dripnordAvg = feedbackData.length > 0 ? 
         (feedbackData.reduce((sum, item) => sum + (parseInt(item.rating) || 0), 0) / feedbackData.length).toFixed(1) : '0.0';
-    document.getElementById('verkkopalauteAvg').textContent = verkkopalauteAvg;
+    document.getElementById('dripnordAvg').textContent = dripnordAvg;
     
     const today = new Date().toDateString();
-    const verkkopalauteToday = feedbackData.filter(item => new Date(item.timestamp).toDateString() === today).length;
-    document.getElementById('verkkopalauteToday').textContent = verkkopalauteToday;
-    
-    // Piilota Dripnord-tilastot
-    const dripnordStats = document.querySelectorAll('[id*="dripnord"]');
-    dripnordStats.forEach(element => {
-        element.style.display = 'none';
-    });
+    const dripnordToday = feedbackData.filter(item => new Date(item.timestamp).toDateString() === today).length;
+    document.getElementById('dripnordToday').textContent = dripnordToday;
 }
 
 // Näytä tietyn lomakkeen palautteet
 function viewFormFeedback(formType) {
-    if (formType === 'verkkopalaute') {
-        // Näytä Verkkopalaute palautteet
+    if (formType === 'dripnord') {
+        // Näytä Dripnord palautteet
         loadFeedbackTable();
         // Siirry palautteet-osioon
         document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' });
@@ -230,7 +229,7 @@ function loadFeedbackTable() {
             <td>${feedback.message.substring(0, 50)}${feedback.message.length > 50 ? '...' : ''}</td>
             <td><span class="status-badge ${feedback.status}">${getStatusText(feedback.status)}</span></td>
             <td>
-                <button class="btn-secondary btn-sm" onclick="viewFeedback('verkkopalaute', ${feedback.id})">Näytä</button>
+                <button class="btn-secondary btn-sm" onclick="viewFeedback('dripnord', ${feedback.id})">Näytä</button>
             </td>
         `;
         tableBody.appendChild(row);
@@ -239,7 +238,7 @@ function loadFeedbackTable() {
     // Päivitä otsikko
     const sectionHeader = document.querySelector('#feedback .section-header h1');
     if (sectionHeader) {
-        sectionHeader.textContent = 'Verkkopalaute - Palautteet';
+        sectionHeader.textContent = 'Dripnord - Palautteet';
     }
 }
 
@@ -247,7 +246,7 @@ function loadFeedbackTable() {
 function viewFeedback(formType, feedbackId) {
     let feedbackData;
     
-    if (formType === 'verkkopalaute') {
+    if (formType === 'dripnord') {
         feedbackData = getFeedbackData().find(item => item.id === feedbackId);
     }
     
@@ -411,7 +410,7 @@ function logout() {
     localStorage.removeItem('rememberLogin');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('adminType');
-    window.location.href = 'login.html';
+    window.location.href = '../verkkopalaute/login.html';
 }
 
 // Tee logout-funktio globaalisti saatavilla
@@ -435,7 +434,7 @@ function exportData() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "verkkopalaute_palautteet.csv");
+    link.setAttribute("download", "dripnord_palautteet.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -497,4 +496,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('replyBtn').addEventListener('click', function() {
         alert('Vastaa palautteeseen - tämä toiminto vaatii backend-toteutuksen');
     });
-}); 
+});

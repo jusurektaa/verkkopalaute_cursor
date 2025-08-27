@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hallintapaneeli - Verkkopalaute</title>
-    <link rel="icon" href="assets/logo.png" type="image/png">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="admin.css">
+    <title>Hallintapaneeli - Dripnord</title>
+    <link rel="icon" href="../verkkopalaute/assets/logo.png" type="image/png">
+    <link rel="stylesheet" href="../verkkopalaute/styles.css">
+    <link rel="stylesheet" href="../verkkopalaute/admin.css">
 </head>
 <body>
     <header class="admin-header">
         <nav class="admin-navbar">
             <div class="admin-logo">
-                <a href="index.html">
-                    <img src="assets/logo.png" alt="Verkkopalaute" class="logo-img">
+                <a href="../verkkopalaute/index.html">
+                    <img src="../verkkopalaute/assets/logo.png" alt="Verkkopalaute" class="logo-img">
                 </a>
                 <span class="admin-title">Hallintapaneeli</span>
             </div>
             <div class="admin-nav-right">
                 <div class="user-info">
-                    <span id="userEmail">admin@verkkopalaute.fi</span>
+                    <span id="userEmail">admin@dripnord.fi</span>
                     <button id="logoutBtn" class="btn-logout" onclick="logout()">Kirjaudu ulos</button>
                 </div>
             </div>
@@ -69,7 +69,7 @@
             <section id="dashboard" class="admin-section active">
                 <div class="section-header">
                     <h1>Yleiskatsaus</h1>
-                    <p>Tervetuloa Verkkopalautteen hallintapaneeliin</p>
+                    <p>Tervetuloa Dripnordin hallintapaneeliin</p>
                 </div>
                 
                 <div class="stats-grid">
@@ -77,8 +77,8 @@
                         <div class="stat-icon">📊</div>
                         <div class="stat-content">
                             <h3>Kokonaispalautteet</h3>
-                            <div class="stat-number" id="totalFeedback">24</div>
-                            <div class="stat-change positive">+12% viime kuusta</div>
+                            <div class="stat-number" id="totalFeedback">0</div>
+                            <div class="stat-change positive">+0% viime kuusta</div>
                         </div>
                     </div>
                     
@@ -86,7 +86,7 @@
                         <div class="stat-icon">📝</div>
                         <div class="stat-content">
                             <h3>Aktiiviset lomakkeet</h3>
-                            <div class="stat-number" id="activeForms">3</div>
+                            <div class="stat-number" id="activeForms">1</div>
                             <div class="stat-change">Aktiivinen</div>
                         </div>
                     </div>
@@ -95,8 +95,8 @@
                         <div class="stat-icon">⭐</div>
                         <div class="stat-content">
                             <h3>Keskiarvo</h3>
-                            <div class="stat-number" id="avgRating">4.2</div>
-                            <div class="stat-change">/ 5 tähteä</div>
+                            <div class="stat-number" id="avgRating">0.0</div>
+                            <div class="stat-change">/ 10 tähteä</div>
                         </div>
                     </div>
                     
@@ -104,7 +104,7 @@
                         <div class="stat-icon">📅</div>
                         <div class="stat-content">
                             <h3>Tänään</h3>
-                            <div class="stat-number" id="todayFeedback">3</div>
+                            <div class="stat-number" id="todayFeedback">0</div>
                             <div class="stat-change">uutta palautetta</div>
                         </div>
                     </div>
@@ -123,7 +123,6 @@
                 <div class="section-header">
                     <h1>Palautteet</h1>
                     <div class="section-actions">
-
                         <button class="btn-primary" id="refreshBtn">🔄 Päivitä</button>
                         <button class="btn-primary" id="exportBtn">Vie tiedot</button>
                         <button class="btn-secondary" id="filterBtn">Suodata</button>
@@ -181,30 +180,28 @@
                 <div class="forms-grid">
                     <div class="form-card">
                         <div class="form-header">
-                            <h3>Verkkopalaute - Asiakastyytyväisyys</h3>
+                            <h3>Dripnord - Asiakastyytyväisyys</h3>
                             <span class="form-status active">Aktiivinen</span>
                         </div>
                         <div class="form-stats">
                             <div class="form-stat">
                                 <span class="stat-label">Palautteita:</span>
-                                <span class="stat-value" id="verkkopalauteCount">0</span>
+                                <span class="stat-value" id="dripnordCount">0</span>
                             </div>
                             <div class="form-stat">
                                 <span class="stat-label">Keskiarvo:</span>
-                                <span class="stat-value" id="verkkopalauteAvg">0.0</span>
+                                <span class="stat-value" id="dripnordAvg">0.0</span>
                             </div>
                             <div class="form-stat">
                                 <span class="stat-label">Tänään:</span>
-                                <span class="stat-value" id="verkkopalauteToday">0</span>
+                                <span class="stat-value" id="dripnordToday">0</span>
                             </div>
                         </div>
                         <div class="form-actions">
-                            <a href="feedback-form.html" class="btn-secondary" target="_blank">Näytä lomake</a>
-                            <button class="btn-primary" onclick="viewFormFeedback('verkkopalaute')">Näytä palautteet</button>
+                            <a href="palaute-lomake.html" class="btn-secondary" target="_blank">Näytä lomake</a>
+                            <button class="btn-primary" onclick="viewFormFeedback('dripnord')">Näytä palautteet</button>
                         </div>
                     </div>
-                    
-
                 </div>
             </section>
 
@@ -236,12 +233,12 @@
                 <div class="settings-form">
                     <div class="form-group">
                         <label for="companyName">Yrityksen nimi</label>
-                        <input type="text" id="companyName" value="Verkkopalaute Oy">
+                        <input type="text" id="companyName" value="Dripnord">
                     </div>
                     
                     <div class="form-group">
                         <label for="adminEmail">Admin-sähköposti</label>
-                        <input type="email" id="adminEmail" value="admin@verkkopalaute.fi">
+                        <input type="email" id="adminEmail" value="admin@dripnord.fi">
                     </div>
                     
                     <div class="form-group">
@@ -278,4 +275,4 @@
 
     <script src="admin.js"></script>
 </body>
-</html> 
+</html>
