@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallintapaneeli - Dripnord</title>
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header class="admin-header">
+        <nav class="admin-navbar">
+            <div class="admin-logo">
+                <a href="index.html">
+                    <img src="assets/logo.png" alt="Verkkopalaute" class="logo-img">
+                </a>
+                <span class="admin-title">Dripnord - Hallintapaneeli</span>
+            </div>
+            <div class="admin-nav-right">
+                <div class="user-info">
+                    <span id="userEmail">admin@dripnord.fi</span>
+                    <button id="logoutBtn" class="btn-logout" onclick="logout()">Kirjaudu ulos</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#dashboard" data-section="dashboard">
+                            <span class="icon">📊</span>
+                            Yleiskatsaus
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#feedback" data-section="feedback">
+                            <span class="icon">💬</span>
+                            Palautteet
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#forms" data-section="forms">
+                            <span class="icon">📝</span>
+                            Lomakkeet
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#analytics" data-section="analytics">
+                            <span class="icon">📈</span>
+                            Analytiikka
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#settings" data-section="settings">
+                            <span class="icon">⚙️</span>
+                            Asetukset
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <!-- Yleiskatsaus -->
+            <section id="dashboard" class="admin-section active">
+                <div class="section-header">
+                    <h1>Yleiskatsaus</h1>
+                    <p>Tervetuloa Dripnordin hallintapaneeliin</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3>Kokonaispalautteet</h3>
+                            <div class="stat-number" id="totalFeedback">0</div>
+                            <div class="stat-change positive">+0% viime kuusta</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <h3>Aktiiviset lomakkeet</h3>
+                            <div class="stat-number" id="activeForms">1</div>
+                            <div class="stat-change">Aktiivinen</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <h3>Keskiarvo</h3>
+                            <div class="stat-number" id="avgRating">0.0</div>
+                            <div class="stat-change">/ 10 tähteä</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <h3>Tämä kuu</h3>
+                            <div class="stat-number" id="monthlyFeedback">0</div>
+                            <div class="stat-change">uutta palautetta</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-feedback">
+                    <h2>Viimeisimmät palautteet</h2>
+                    <div id="recentFeedbackList">
+                        <!-- Viimeisimmät palautteet näytetään tässä -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Palautteet -->
+            <section id="feedback" class="admin-section">
+                <div class="section-header">
+                    <h1>Palautteet</h1>
+                    <p>Hallitse ja käsittele asiakaspalautteita</p>
+                </div>
+                
+                <div class="feedback-controls">
+                    <div class="search-box">
+                        <input type="text" id="feedbackSearch" placeholder="Etsi palautteita...">
+                        <button class="btn-search">🔍</button>
+                    </div>
+                    <button class="btn-export" onclick="exportData()">📥 Vie tiedot</button>
+                </div>
+                
+                <div class="feedback-table-container">
+                    <table class="feedback-table">
+                        <thead>
+                            <tr>
+                                <th>Päivämäärä</th>
+                                <th>Nimi</th>
+                                <th>Sähköposti</th>
+                                <th>Yritys</th>
+                                <th>Arvosana</th>
+                                <th>Viesti</th>
+                                <th>Toiminnot</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackTableBody">
+                            <!-- Palautteet näytetään tässä -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Lomakkeet -->
+            <section id="forms" class="admin-section">
+                <div class="section-header">
+                    <h1>Lomakkeet</h1>
+                    <p>Hallitse palaute-lomakkeita</p>
+                </div>
+                
+                <div class="forms-grid">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h3>Dripnord - Asiakastyytyväisyys</h3>
+                            <span class="form-status active">Aktiivinen</span>
+                        </div>
+                        <div class="form-stats">
+                            <div class="form-stat">
+                                <span class="stat-label">Palautteet:</span>
+                                <span class="stat-value" id="dripnordFeedbackCount">0</span>
+                            </div>
+                            <div class="form-stat">
+                                <span class="stat-label">Keskiarvo:</span>
+                                <span class="stat-value" id="dripnordAvgRating">0.0</span>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <a href="dripnord-feedback.html" class="btn-primary" target="_blank">Näytä lomake</a>
+                            <button class="btn-secondary" onclick="editForm('dripnord')">Muokkaa</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytiikka -->
+            <section id="analytics" class="admin-section">
+                <div class="section-header">
+                    <h1>Analytiikka</h1>
+                    <p>Palautteiden tilastot ja trendit</p>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Arvosanojen jakauma</h3>
+                        <div id="ratingChart" class="chart-placeholder">
+                            <p>Kaavio näytetään tässä</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Kuukausittaiset palautteet</h3>
+                        <div id="monthlyChart" class="chart-placeholder">
+                            <p>Kaavio näytetään tässä</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Asetukset -->
+            <section id="settings" class="admin-section">
+                <div class="section-header">
+                    <h1>Asetukset</h1>
+                    <p>Hallintapaneelin asetukset</p>
+                </div>
+                
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label for="companyName">Yrityksen nimi</label>
+                        <input type="text" id="companyName" value="Dripnord" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adminEmail">Admin-sähköposti</label>
+                        <input type="email" id="adminEmail" value="admin@dripnord.fi" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notificationEmail">Ilmoitussähköposti</label>
+                        <input type="email" id="notificationEmail" value="notifications@dripnord.fi">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="autoResponse">Automaattinen vastaus</label>
+                        <textarea id="autoResponse" rows="4" placeholder="Kirjoita automaattinen vastausviesti..."></textarea>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="saveSettings()">Tallenna asetukset</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Muokkausmodaali -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Muokkaa lomaketta</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="editFormTitle">Lomakkeen otsikko</label>
+                    <input type="text" id="editFormTitle" value="Dripnord - Asiakastyytyväisyys">
+                </div>
+                <div class="form-group">
+                    <label for="editFormDescription">Kuvaus</label>
+                    <textarea id="editFormDescription" rows="3">Anna palautetta Dripnord-palveluista ja auta meitä kehittämään Pohjoismaiden palveluita.</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal()">Peruuta</button>
+                <button class="btn-primary" onclick="saveFormChanges()">Tallenna</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dripnord-admin.js"></script>
+</body>
+</html>

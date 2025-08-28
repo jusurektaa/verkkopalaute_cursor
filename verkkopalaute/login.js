@@ -12,7 +12,7 @@ const DEMO_CREDENTIALS = {
     'admin@dripnord.fi': {
         password: 'dripnord123',
         adminType: 'dripnord',
-        redirectUrl: '../dripnord-palaute/admin.html'
+        redirectUrl: 'dripnord-admin.html'
     }
 };
 
@@ -89,7 +89,7 @@ function checkLoginStatus() {
         if (adminType === 'verkkopalaute') {
             window.location.href = 'admin.html';
         } else if (adminType === 'dripnord') {
-            window.location.href = '../dripnord-palaute/admin.html';
+            window.location.href = 'dripnord-admin.html';
         }
     }
 }
