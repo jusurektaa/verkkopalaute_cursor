@@ -40,16 +40,29 @@ document.addEventListener('DOMContentLoaded', function() {
             source: 'dripnord'
         };
 
-        // Tallenna palaute
-        saveFeedback(formData);
-        
-        // Näytä viesti
-        showMessage('Kiitos palautteestasi! Sinut ohjataan kiitos-sivulle.', 'success');
-        
-        // Ohjaa kiitos-sivulle
-        setTimeout(() => {
-            window.location.href = 'dripnord-thanks.html?id=' + encodeURIComponent(JSON.stringify(formData));
-        }, 2000);
+        // Tallenna palaute Firebaseen
+        try {
+            // Lisää lähdetyyppi
+            formData.source = 'dripnord';
+            formData.timestamp = new Date().toISOString();
+            
+            const result = await FirebaseService.saveFeedback(formData);
+            
+            if (result.success) {
+                // Näytä viesti
+                showMessage('Kiitos palautteestasi! Sinut ohjataan kiitos-sivulle.', 'success');
+                
+                // Ohjaa kiitos-sivulle
+                setTimeout(() => {
+                    window.location.href = 'dripnord-thanks.html?id=' + encodeURIComponent(JSON.stringify(formData));
+                }, 2000);
+            } else {
+                throw new Error(result.error);
+            }
+        } catch (error) {
+            console.error('Virhe palautteen tallennuksessa:', error);
+            showMessage('Virhe palautteen tallennuksessa. Yritä uudelleen.', 'error');
+        }
     });
 
     // Tallenna palaute localStorageen

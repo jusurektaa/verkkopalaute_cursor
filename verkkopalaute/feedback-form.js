@@ -93,17 +93,26 @@ function initFeedbackForm() {
         submitButton.textContent = 'Lähetetään...';
         submitButton.disabled = true;
         
-        // Tallenna palaute localStorageen
+        // Tallenna palaute Firebaseen
         try {
-            const savedFeedback = saveFeedback(formData);
+            // Lisää lähdetyyppi
+            formData.source = 'verkkopalaute';
+            formData.timestamp = new Date().toISOString();
             
-            // Näytä onnistumisviesti
-            showMessage('Kiitos palautteestasi! Ohjataan kiitos-sivulle...', 'success');
+            // Tallenna Firebaseen
+            const result = await FirebaseService.saveFeedback(formData);
             
-            // Ohjaa kiitos-sivulle 2 sekunnin jälkeen
-            setTimeout(() => {
-                window.location.href = `thank-you.html?id=${savedFeedback.id}`;
-            }, 2000);
+            if (result.success) {
+                // Näytä onnistumisviesti
+                showMessage('Kiitos palautteestasi! Ohjataan kiitos-sivulle...', 'success');
+                
+                // Ohjaa kiitos-sivulle 2 sekunnin jälkeen
+                setTimeout(() => {
+                    window.location.href = `thank-you.html?id=${result.id}`;
+                }, 2000);
+            } else {
+                throw new Error(result.error);
+            }
         } catch (error) {
             console.error('Virhe palautteen tallennuksessa:', error);
             showMessage('Virhe palautteen tallennuksessa. Yritä uudelleen.', 'error');

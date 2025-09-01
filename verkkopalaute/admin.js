@@ -23,69 +23,17 @@ function checkAuth() {
     }
 }
 
-// Hae palautteet localStorageesta
-function getFeedbackData() {
+// Hae palautteet Firebaseesta
+async function getFeedbackData() {
     try {
-        // Hae vain Verkkopalaute palautteet localStorageesta
-        const storedFeedback = JSON.parse(localStorage.getItem('verkkopalaute_feedback') || '[]');
-        
-        if (storedFeedback.length > 0) {
-            return storedFeedback;
+        // Hae vain Verkkopalaute palautteet Firebaseesta
+        const result = await FirebaseService.getFeedbackBySource('verkkopalaute');
+        if (result.success) {
+            return result.data;
+        } else {
+            console.error('Virhe palautteiden haussa:', result.error);
+            return [];
         }
-        
-        // Jos ei ole palautteita localStorageessa, käytä demo-tietoja
-        return [
-            {
-                id: 1,
-                date: '2024-01-15',
-                name: 'Matti Meikäläinen',
-                email: 'matti@example.com',
-                company: 'ABC Oy',
-                message: 'Erinomainen palvelu! Sain nopeasti apua ongelmaani.',
-                status: 'new',
-                rating: 5
-            },
-            {
-                id: 2,
-                date: '2024-01-14',
-                name: 'Liisa Virtanen',
-                email: 'liisa@example.com',
-                company: 'XYZ Ky',
-                message: 'Hyvä palvelu, mutta voisi olla nopeampi vastata.',
-                status: 'read',
-                rating: 4
-            },
-            {
-                id: 3,
-                date: '2024-01-13',
-                name: 'Pekka Korhonen',
-                email: 'pekka@example.com',
-                company: 'DEF Ab',
-                message: 'Ongelma ratkaistu nopeasti. Kiitos!',
-                status: 'replied',
-                rating: 5
-            },
-            {
-                id: 4,
-                date: '2024-01-12',
-                name: 'Anna Mäkinen',
-                email: 'anna@example.com',
-                company: 'GHI Oy',
-                message: 'Tarvitsen lisätietoja tuotteesta.',
-                status: 'new',
-                rating: 3
-            },
-            {
-                id: 5,
-                date: '2024-01-11',
-                name: 'Jussi Laaksonen',
-                email: 'jussi@example.com',
-                company: 'JKL Ky',
-                message: 'Erinomainen asiakaspalvelu ja nopea toimitus.',
-                status: 'replied',
-                rating: 5
-            }
-        ];
     } catch (error) {
         console.error('Virhe palautteiden haussa:', error);
         return [];
@@ -418,27 +366,33 @@ function logout() {
 window.logout = logout;
 
 // Tietojen vienti
-function exportData() {
-    const feedbackData = getFeedbackData();
-    
-    if (feedbackData.length === 0) {
-        alert('Ei palautteita vientiin!');
-        return;
+async function exportData() {
+    try {
+        const feedbackData = await getFeedbackData();
+        
+        if (feedbackData.length === 0) {
+            alert('Ei palautteita vientiin!');
+            return;
+        }
+        
+        const csvContent = "data:text/csv;charset=utf-8," 
+            + "Päivämäärä,Nimi,Sähköposti,Yritys,Viesti,Arvosana,Tila\n"
+            + feedbackData.map(feedback => {
+                const date = feedback.timestamp ? new Date(feedback.timestamp).toLocaleDateString('fi-FI') : feedback.date || '';
+                return `${date},"${feedback.name}","${feedback.email}","${feedback.company || ''}","${feedback.message || ''}",${feedback.rating},${feedback.status || 'new'}`
+            }).join("\n");
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "verkkopalaute_palautteet.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } catch (error) {
+        console.error('Virhe tietojen viennissä:', error);
+        alert('Virhe tietojen viennissä. Yritä uudelleen.');
     }
-    
-    const csvContent = "data:text/csv;charset=utf-8," 
-        + "Päivämäärä,Nimi,Sähköposti,Yritys,Viesti,Arvosana,Tila\n"
-        + feedbackData.map(feedback => 
-            `${feedback.date},"${feedback.name}","${feedback.email}","${feedback.company || ''}","${feedback.message || ''}",${feedback.rating},${feedback.status}`
-        ).join("\n");
-    
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "verkkopalaute_palautteet.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
 }
 
 // Event listeners

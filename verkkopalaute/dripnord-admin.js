@@ -180,10 +180,21 @@ function loadRecentFeedback(recentFeedback) {
     });
 }
 
-// Hae palautteet localStorageesta
-function getFeedbackData() {
-    const feedback = localStorage.getItem('dripnord_feedback');
-    return feedback ? JSON.parse(feedback) : [];
+// Hae palautteet Firebaseesta
+async function getFeedbackData() {
+    try {
+        // Hae vain Dripnord palautteet Firebaseesta
+        const result = await FirebaseService.getFeedbackBySource('dripnord');
+        if (result.success) {
+            return result.data;
+        } else {
+            console.error('Virhe palautteiden haussa:', result.error);
+            return [];
+        }
+    } catch (error) {
+        console.error('Virhe palautteiden haussa:', error);
+        return [];
+    }
 }
 
 // Näytä palaute yksityiskohtaisesti
@@ -211,40 +222,45 @@ function deleteFeedback(index) {
 }
 
 // Vie tiedot CSV-muodossa
-function exportData() {
-    const feedbackData = getFeedbackData();
-    
-    if (feedbackData.length === 0) {
-        alert('Ei palautteita vientiin!');
-        return;
-    }
-    
-    // Luo CSV-sisältö
-    let csvContent = 'Päivämäärä,Nimi,Sähköposti,Yritys,Arvosana,Viesti\n';
-    
-    feedbackData.forEach(feedback => {
-        const date = new Date(feedback.timestamp).toLocaleDateString('fi-FI');
-        const name = feedback.name.replace(/"/g, '""');
-        const email = feedback.email;
-        const company = (feedback.company || '').replace(/"/g, '""');
-        const rating = feedback.rating;
-        const message = (feedback.message || '').replace(/"/g, '""');
+async function exportData() {
+    try {
+        const feedbackData = await getFeedbackData();
         
-        csvContent += `"${date}","${name}","${email}","${company}",${rating},"${message}"\n`;
-    });
-    
-    // Lataa tiedosto
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'dripnord_palautteet.csv');
-    link.style.visibility = 'hidden';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+        if (feedbackData.length === 0) {
+            alert('Ei palautteita vientiin!');
+            return;
+        }
+        
+        // Luo CSV-sisältö
+        let csvContent = 'Päivämäärä,Nimi,Sähköposti,Yritys,Arvosana,Viesti\n';
+        
+        feedbackData.forEach(feedback => {
+            const date = new Date(feedback.timestamp).toLocaleDateString('fi-FI');
+            const name = feedback.name.replace(/"/g, '""');
+            const email = feedback.email;
+            const company = (feedback.company || '').replace(/"/g, '""');
+            const rating = feedback.rating;
+            const message = (feedback.message || '').replace(/"/g, '""');
+            
+            csvContent += `"${date}","${name}","${email}","${company}",${rating},"${message}"\n`;
+        });
+        
+        // Lataa tiedosto
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'dripnord_palautteet.csv');
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } catch (error) {
+        console.error('Virhe tietojen viennissä:', error);
+        alert('Virhe tietojen viennissä. Yritä uudelleen.');
+    }
 }
 
 // Muokkaa lomaketta

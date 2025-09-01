@@ -117,6 +117,62 @@
         </div>
     </footer>
 
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, where, orderBy, getDocs, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAaiyXF6_mhWfjsFVWV6aTTj5PvadOicbM",
+            authDomain: "verkkopalaute-551f8.firebaseapp.com",
+            projectId: "verkkopalaute-551f8",
+            storageBucket: "verkkopalaute-551f8.firebasestorage.app",
+            messagingSenderId: "1079172282962",
+            appId: "1:1079172282962:web:71a32e306ba936b306fd8b",
+            measurementId: "G-HGQ7GP79NW"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        
+        // Tee Firebase-palvelut globaaliksi
+        window.FirebaseService = {
+            async saveFeedback(feedback) {
+                try {
+                    // Lisää timestamp jos ei ole
+                    if (!feedback.timestamp) {
+                        feedback.timestamp = new Date().toISOString();
+                    }
+                    
+                    // Tallenna palaute
+                    const docRef = await addDoc(collection(db, 'feedback'), feedback);
+                    console.log('Palaute tallennettu ID:llä:', docRef.id);
+                    
+                    return {
+                        success: true,
+                        id: docRef.id,
+                        message: 'Palaute tallennettu onnistuneesti!'
+                    };
+                } catch (error) {
+                    console.error('Virhe palautteen tallentamisessa:', error);
+                    return {
+                        success: false,
+                        error: error.message
+                    };
+                }
+            }
+        };
+    </script>
+    
+    <!-- Firebase-konfiguraatio -->
+    <script src="firebase-config.js"></script>
+    
+    <!-- Palaute-lomakkeen toiminnallisuus -->
     <script src="feedback-form.js"></script>
 </body>
 </html>
